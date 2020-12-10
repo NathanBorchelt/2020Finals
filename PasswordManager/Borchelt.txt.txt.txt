@@ -1,0 +1,3 @@
+password
+[work, personal]
+[[[email3, user3, password3], [email4, user4, password4]], [[email5, user5, password5], [email6, user6, password6]]]
