@@ -1,52 +1,63 @@
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.Random;
-import java.util.ArrayList;
+
 public class PasswordGenerator{
+  Scanner in=new Scanner(System.in);
+  System.out.println("what should the passwords length be");
+    private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    private static final String UPPERCASE = LOWERCASE.toUpperCase();
+    private static final String DIGIT = "0123456789";
+    private static final String OTHER_SYMBOLS = "!@#&()–[{}]:;',?/*~$^+=<>";
 
-    public static ArrayList<ArrayList<Character>> validASCIIChars = new ArrayList<ArrayList<Character>>();
-    public static Random rand = new Random();
+    private static final String PASSWORD =
+            LOWERCASE + UPPERCASE + DIGIT + OTHER_SYMBOLS;
 
-    public PasswordGenerator(){
-        char[] validSpecLets = {'!','@','#','$','%','&','-','+','?'};
-        for(byte i = 0; i < 4;i++){
-            validASCIIChars.add(new ArrayList<Character>());
-        }
-        for(byte i = (int) '0'; i<(((int)'9')+1);i++){
-            validASCIIChars.get(0).add((char)i);
-        }
-        for(char let : validSpecLets){
-            validASCIIChars.get(1).add(let);
-        }
-        for(byte i = (int)'A'; i < (((int)'Z')+1);i++){
-            validASCIIChars.get(2).add((char)i);
-        }
-        for(byte i = (int)'a'; i < (((int)'z')+1);i++){
-            validASCIIChars.get(2).add((char)i);
-        }     
+    private static SecureRandom random = new SecureRandom();
+
+    public static String createPassword(byte numLets) {
+
+        StringBuilder result = new StringBuilder(numLets);
+
+        // at least 2 characters (lowercase)
+        String LowerCase = generateRandomString(LOWERCASE, 2);
+        result.append(LowerCase);
+
+        // at least 2 characters
+        String UppercaseCaseing = generateRandomString(UPPERCASE, 1);
+        result.append(UppercaseCaseing);
+
+        // at least 2 numbers
+        String Digit = generateRandomString(DIGIT, 2);
+        result.append(Digit);
+
+        // at least 2 special characters (punctuation + symbols)
+        String SpecialCharacters = generateRandomString(OTHER_SYMBOLS, 2);
+        result.append(SpecialCharacters);
+
+        String password = result.toString();
+      
+        System.out.println(password);
+        return password;
     }
 
-    public String generatePassword(short length){
-        String newPassword = "";
-        for(short i = 0; i < length; i++){
-            byte charTypeSelection = (byte) rand.nextInt(validASCIIChars.size());
-            newPassword += validASCIIChars.get(charTypeSelection).get(rand.nextInt(validASCIIChars.get(charTypeSelection).size()));
-        }
-        return newPassword;
-    }
+    // generates random characters from the list of characters
+    private static String generateRandomString(String input, int size) {
 
-    public String generatePassword(){
-        byte length = (byte)(rand.nextInt(56)+8);
-        String newPassword = "";
-        for(short i = 0; i < length; i++){
-            byte charTypeSelection = (byte) rand.nextInt(validASCIIChars.size());
-            newPassword += validASCIIChars.get(charTypeSelection).get(rand.nextInt(validASCIIChars.get(charTypeSelection).size()));
+        if (input == null || input.length() <= 0)
+            throw new IllegalArgumentException("Invalid input.");
+        if (size < 1) throw new IllegalArgumentException("need at least one character");
+//puts all the characters into one output
+        StringBuilder result = new StringBuilder(size);
+        for (int i = 0; i < size; i++) {
+            // produce a random order
+            int index = random.nextInt(input.length());
+            result.append(input.charAt(random.nextInt(index)));
         }
-        return newPassword;
-    }
+        return result.toString();
+        }
 
-    public void setNewSeed(long newSeed){
-        rand.setSeed(newSeed);
-    }
-    public void setNewSeed(){
-        rand.setSeed(rand.nextLong());
-    }
 }

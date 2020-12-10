@@ -1,0 +1,50 @@
+Admiral Ackbar						x					x				x			x				x								
+Admiral Holdo			x			x						x								x		x	x							
+Admiral Piett			x		x					x					x							x								x
+Ahsoka Tano	x					x									x				w		x	x						x		
+BB-8		x				x						x									x	x		x						
+Biggs Darklighter			x			x					x											x								
+Boba Fett			x				x															x			x			x		
+Bossk							x															x								
+C-3PO		x				x					x	x			x			x								x		x	x	x
+Chewbacca				x		x		x	1		x	x			x		x			x		x			x			x		x
+Chirrut Imwe			x			x					x																	x		
+Count Dooku	x		x		x									x					r			x				x				
+Darth Maul			x		x									x					r			x			x					
+Darth Vader		x	x		x					x									r	x		x			x	x				x
+Dengar			x				x																							
+Droideka		x			x									x											x					
+Emperor Palpatine		x	x		x	x				x				x	x				r						x			x		x
+Enfys Nest			x			x																								
+Ezra Bridger	x		x			x					x								g		x	x	x							
+Finn	x		x			x						x										x	x					x		
+General Grievous		x	x		x									x					"g,y"			x			x	x			x	
+Grand Moff Tarkin			x		x					x					x							x								
+Greedo							x																			x				
+Han Solo			x			x		x	1		x	x										x					x			x
+IG-11		x					x																							
+Jabba the Hut							x											x			x			x		x				x
+Jango Fett			x				x							x								x			x				x	
+Jar Jar Binks					x	x				x			x	x	x								x	x				x		
+K2SO		x				x					x											x								
+Ki-Adi-Mundi	x					x									x		x		b											
+Kylo Ren	x				x	x							x						b							x				
+Lando Calrissian			x			x		x	2													x								
+Luke Skywalker	x		x			x					x	x							g							x	x	x	x	
+Mace Windu	x		x			x									x				p						x	x		x	x	
+Mon Mothma			x			x					x	x																		
+Nute Gunray					x									x				x					x							
+Obi-Wan Kenobi	x		x			x									x				b			x				x		x		
+Padme Amidala			x			x									x							x	x			x				
+Plo Koon	x					x									x				b			x								
+Poe Dameron			x			x						x										x						x		
+Princess Leia			x			x					x	x										x	x					x		x
+Qira			x					x	1													x								
+Qui-Gon Jinn	x		x		x	x													g			x			x	x				
+R2-D2		x				x					x	x			x							x		x						
+Anakin Skywalker	x		x			x									x			x	b			x	x			x		x	x	
+Rex			x			x					x				x							x								
+Rey	x		x		x	x						x							y			x	x		x	x		x		
+Wedge Antilles			x			x					x											x								
+Wicket						x					x					x	x				x				x					
+Yoda	x					x					x							x	g		x				x	x		x		x

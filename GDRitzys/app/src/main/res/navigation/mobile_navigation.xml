@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.gdritzys.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_icecream"
+        android:name="com.example.gdritzys.ui.icecream.IceCreamFragment"
+        android:label="@string/menu_icecream"
+        tools:layout="@layout/fragment_icecream" />
+
+    <fragment
+        android:id="@+id/nav_sandwich"
+        android:name="com.example.gdritzys.ui.sandwiches.SandwichFragment"
+        android:label="@string/menu_sandwich"
+        tools:layout="@layout/fragment_sandwich" />
+
+    <fragment
+        android:id="@+id/nav_checkout"
+        android:name="com.example.gdritzys.ui.checkout.CheckoutFragment"
+        android:label="@string/menu_checkout"
+        tools:layout="@layout/fragment_checkout" />
+</navigation>
