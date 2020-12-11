@@ -19,6 +19,7 @@ public class PasswordManager {
     public static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
+        //this exist for testing and is the default file that is checked without user input
         viewUserPasswords("Borchelt.txt");
         // https://www.guru99.com/buffered-reader-in-java.html
 
@@ -57,9 +58,6 @@ public class PasswordManager {
                 case "1":
                     showCatagories();
                     break;
-                case "Catagories":
-                    showCatagories();
-                    break;
                 case "2":
                     System.out.println("Type the catagory you want or \"help\" to list all the catagories");
                     catagory = in.nextLine();
@@ -88,61 +86,6 @@ public class PasswordManager {
                         }
                     } else {
                         System.out.println("That is not a catagory");
-                    }
-                    break;
-                case "Password":
-                    System.out.println("Type the catagory you want or \"help\" to list all the catagories");
-                    catagory = in.nextLine();
-                    catIndex = callCatagoryIndex(catagory);
-                    if (catagory.equals("help")) {
-                        showCatagories();
-                    }
-                    if (catIndex != -1) {
-                        System.out.println(
-                                "Type \"sites\" to know all avalible sites, or type the site name to see username and password");
-                        String siteQuestion = in.nextLine();
-                        if (siteQuestion.equalsIgnoreCase("sites")) {
-                            showSites(catagory);
-                        } else {
-                            int siteIndex = getSubGroupIndex(catIndex, siteQuestion);
-                            if (siteIndex != -1) {
-                                ArrayList<String> passwordInformation = returnPassword(allpasswords, catagory,
-                                        siteIndex);
-                                System.out.println("The information of " + passwordInformation.get(0)
-                                        + " is\nUsername:\t" + passwordInformation.get(1) + "\nPassword:\t"
-                                        + passwordInformation.get(2));
-                            } else {
-                                System.out.println("That is not a valid site");
-                            }
-                            break;
-                        }
-                    } else {
-                        System.out.println("That is not a catagory");
-                    }
-                    break;
-                case "delete":
-                    System.out.println("Type the catagory you want or \"help\" to list all the catagories");
-                    catagory = in.nextLine();
-                    catIndex = callCatagoryIndex(catagory);
-                    if (catagory.equals("help")) {
-                        showCatagories();
-                    }
-                    if (catIndex != -1) {
-                        System.out.println(
-                                "Type \"sites\" to know all avalible sites, or type the site name to see username and password");
-                        String siteQuestion = in.nextLine();
-                        if (siteQuestion.equalsIgnoreCase("sites")) {
-                            showSites(catagory);
-                        } else {
-                            int siteIndex = getSubGroupIndex(catIndex, siteQuestion);
-                            if (siteIndex != -1) {
-                                allpasswords.get(catIndex).remove(siteIndex);
-                            }
-                            if (allpasswords.get(catIndex).size() == 0) {
-                                allpasswords.remove(catIndex);
-                                userCatagories.remove(catIndex);
-                            }
-                        }
                     }
                     break;
                 case "3":
@@ -188,6 +131,7 @@ public class PasswordManager {
                         System.out.println("That is not a valid catagory");
                     }
                 case "6":
+                    //you do not need more than 127 characte
                     System.out.println("How many characters do you want in this password (between 8 and 127)");
                     byte numLetters = in.nextByte();
                     passwordGened = PasswordGenerator.createPassword(numLetters);
@@ -209,7 +153,7 @@ public class PasswordManager {
         FileReading.saveAndClose();
 
     }
-
+    // this is made multiple time to ry to make calls simpler when getting wanted
     public static ArrayList<String> returnPassword(ArrayList<ArrayList<ArrayList<String>>> allCatagoryOptions,
             String catagoryName, String siteName) {
         ArrayList<String> siteUserPass = new ArrayList<>();
@@ -237,7 +181,7 @@ public class PasswordManager {
         }
         return new ArrayList<>(Arrays.asList("There is nothing under that search."));
     }
-
+    
     public static ArrayList<String> returnPassword(ArrayList<ArrayList<ArrayList<String>>> allCatagoryOptions,
             String catagoryName, int midIndex) {
         ArrayList<String> siteUserPass = new ArrayList<>();
@@ -264,11 +208,15 @@ public class PasswordManager {
         }
         return new ArrayList<>(Arrays.asList("There is nothing under that search."));
     }
-
+    
     public static int callCatagoryIndex(String catagoryName) {
         System.out.println(userCatagories.indexOf(catagoryName));
         return userCatagories.indexOf(catagoryName);
     }
+
+    /*
+     *getSubGroup index is made multiple times to try to make calls simpler to do in the code 
+     */
 
     public static int getSubGroupIndex(String catName, String siteName) {
         int outerMostCatagoryIndex = callCatagoryIndex(catName);
@@ -289,7 +237,7 @@ public class PasswordManager {
         }
         return -1;
     }
-
+    //this was used to help make all the catagores and devide the text
     public static ArrayList<String> makeCatagories(String fileLine) {
         // fileLine = fileLine.replaceAll("[", "");
         // fileLine = fileLine.replaceAll("]", "");
@@ -298,6 +246,7 @@ public class PasswordManager {
         // System.out.println(Arrays.toString(fileLineArray));
         // System.out.println(fileLineArray[0]);
         for (byte i = 0; i < fileLineArray.length; i++) {
+            //to remove brackets you need double slashes, i do not make the rule, not very intuitive
             fileLineArray[i] = fileLineArray[i].replaceAll("\\[", "");
             fileLineArray[i] = fileLineArray[i].replaceAll("\\]", "");
         }
