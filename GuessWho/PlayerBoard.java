@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 public class PlayerBoard {
+    /*
+     * this is how each player gets their board with all their characters
+     * using arrray list so that i do not have to add a "validity" atribute to ever character, thus making one less thing that i need to check
+     * 
+     * really, bytes are used for saving memory because it uses 8 bits(+/- 127) vs ints 32-bits, and considering this game should never take more than 255 characters, it should be fine.
+    */
     private ArrayList<SWCharacter> playerBoard;
     private SWCharacter playerChoice;
 
@@ -28,6 +34,7 @@ public class PlayerBoard {
             return null;
         }
     }
+    // personal preferance to use length() vs size() eventhough it is ArrayList based
     public byte length(){
         return (byte) playerBoard.size();
     }

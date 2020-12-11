@@ -10,12 +10,21 @@ import java.lang.Math;
 import java.util.Collections;
 
 public class GuessWho{
+    /*
+     *Known issues 
+     *  No AI, just ran out of time
+     *  Uses number based input and does not let the oponent say if it is true or false
+     * 
+     * most variables are public static because it would be easier to call them almost everywhere then to keep passing in universal data
+     */
     public static boolean checkingSide;
     public static boolean isDoesDoesNot = false;
     public static boolean isInteger = false;
     public static boolean gameOver = false;
+    //there are about 30 atributes, so it should not need that large of number, thus another 3 bytes saved
     public static byte atributeType;
     public static boolean computer = false;
+    //this is just because the game should not take more than 255 turns, so it saves 3 bytes
     public static byte playerTurn = -127;
     public static PlayerBoard p1Board = new PlayerBoard();
     public static PlayerBoard p2Board = new PlayerBoard();
@@ -26,11 +35,14 @@ public class GuessWho{
     public static String selectionOption;
     public static String doesDoesNotHaveQuestion;
     public static String pauseForInput;
+    //saver color inputs, just easier to keep the idea of numbers instead of changing it partway through
     public static String[] saberColors = {"1: No Lightsaber","2: Blue","3: Green","4: Red","5: Yellow","6: White","7: Purple","8: Green and Yellow"};
+    //ABLE TO DO RANDOM *INTS* AND NOT HAVE TO DO MULTIPLICATION
     public static Random rand = new Random();
     public static void main(String[] args) {
         ArrayList<SWCharacter> avalibleChars = new ArrayList<SWCharacter>();
         ArrayList<Integer> randOptions = new ArrayList<Integer>();
+        //it starts as an ArrayList before becomeing a PlayerBoard so i can shuffel so each player has different boards orders but the same characters
         ArrayList<SWCharacter> p1Initalization  = new ArrayList<SWCharacter>();
         ArrayList<SWCharacter> p2Initalization  = new ArrayList<SWCharacter>();
         String[] optionPrompStrings = {
@@ -66,6 +78,7 @@ public class GuessWho{
             "Have they lost a limb?",
             "Are they a Space Balls character?"};
         questionOptions =  new ArrayList<String>(Arrays.asList(optionPrompStrings));
+        //originally planed to have removable questions, decided to forgo that
         try{
             //https://www.journaldev.com/709/java-read-file-line-by-line
             BufferedReader allFile = new BufferedReader(new FileReader("SWData.txt"));
@@ -87,12 +100,14 @@ public class GuessWho{
         }
         */
         int potCharIndex;
+        //made so you get half the chacters to choose from. it is a while loop to garentee that you get 25 characters without duplicates
         while(randOptions.size()<(Math.round((avalibleChars.size()/2)))){
             potCharIndex = rand.nextInt(avalibleChars.size());
             if(!randOptions.contains(potCharIndex)){
                 randOptions.add(potCharIndex);
             }
         }
+        //both list start out the same before being shuffed to be different in order on line 115
         for(int i = 0; i < randOptions.size();i++){
             p1Initalization.add(avalibleChars.get(randOptions.get(i)));
             p2Initalization.add(avalibleChars.get(randOptions.get(i)));
@@ -137,6 +152,7 @@ public class GuessWho{
         }
         clrscr();
         String p2Confirm="";
+        //PVC does not work, so this would just select a random char for player 2
         if(!pvpPvc.equalsIgnoreCase("pvc")){
             while (!p2Confirm.equalsIgnoreCase("yes")){
                 System.out.println("Player 2: Pick your character by typing the number next to their name:");
@@ -155,15 +171,20 @@ public class GuessWho{
         while(!gameOver){
             playerTurn++;
             testCharacteristic();
-        } 
+        }
+        System.out.println("Player "+ ((playerTurn%2 == 0)? "1":"2")+  " has won the game.");
     }
     public static void testCharacteristic(){
-        if(playerTurn%2 == 0) playerChars = p1Board;
-        else                  playerChars = p2Board;
-        printChars(playerChars);
-        System.out.println();
+        // playerChars is the PlayerBoard of the person guessing
+        if(playerTurn%2 == 0) {playerChars = p1Board; opPlayerChars = p2Board;}
+        else                  {playerChars = p2Board; opPlayerChars = p1Board;}
+
+        printChars(playerChars);//           |
+        System.out.println();//              |
+        //                                  \|/ quick way of saying p1 or p2
         System.out.println("Player "+ ((playerChars.equals(p1Board))? "1":"2")+  ": Make Your Choice");
         printOptions(questionOptions);
+        //just makes sure you type in the number and not the question
         while(!isInteger){
             System.out.println("Type in the option number.");
             selectionOption = in.nextLine();
@@ -177,6 +198,7 @@ public class GuessWho{
             }
         }
         isInteger = false;
+        //while not the best wording, this basically says the Ex: Yes I want to know if they ARE jedi, or No, I want to know that they are NOT jedi
         while(!isDoesDoesNot && (atributeType != 19 || atributeType != 9)){
             System.out.println("Type \"Are\" if they do have the atribute or \"Not\" if they do not.");
             doesDoesNotHaveQuestion = in.nextLine();
@@ -190,16 +212,24 @@ public class GuessWho{
             }
         }
         isDoesDoesNot = false;
+
+        // 10,20, and 1 are all that requre a little bit more than just a boolean check and need a second input
         if (atributeType != 10 || atributeType != 20 || atributeType != 1){
             for(byte index = 0; index < playerChars.length(); index++){
-                if(checkingSide != playerChars.returnChar(index).questionB(atributeType) && ){
-                    playerChars.invalidChar(index);
+                //this if statment checks your question against their selected character to decide who to remove from the list
+                if (opPlayerChars.getPlayerChoice().questionB(atributeType) == checkingSide){
+                    if(checkingSide != playerChars.returnChar(index).questionB(index)){
+                        playerChars.invalidChar(index);
+                    }
+                }
+                else{
+                    if(checkingSide != playerChars.returnChar(index).questionB(atributeType)){
+                        playerChars.invalidChar(index);
+                    }
                 }
             }
         }
         else if(atributeType == 1){
-            if(playerTurn%2 == 1) opPlayerChars = p1Board;
-            else                  opPlayerChars = p2Board;
             System.out.println("Type the number by the character's name:");
             for(byte index = 0; index < opPlayerChars.length();index++){
                 System.out.println((index+1)+": "+opPlayerChars.returnChar(index));
@@ -213,8 +243,10 @@ public class GuessWho{
             System.out.println("What rank is their Kessel Run");
             byte rank = in.nextByte();
             for(byte index = 0; index < playerChars.length(); index++){
-                if(rank != playerChars.returnChar(index).getKesselSpeed()){
-                    playerChars.invalidChar(index);
+                if (opPlayerChars.getPlayerChoice().questionI(atributeType) == rank){
+                    if(rank != playerChars.returnChar(index).questionI(index)){
+                        playerChars.invalidChar(index);
+                    }
                 }
             }
         }
@@ -225,13 +257,17 @@ public class GuessWho{
             }
             byte saberColorChoice = in.nextByte();
             for(byte index = 0; index < playerChars.length(); index++){
-                if(saberColorChoice != playerChars.returnChar(index).getKesselSpeed()){
-                    playerChars.invalidChar(index);
+                if (opPlayerChars.getPlayerChoice().questionI(atributeType) == saberColorChoice){
+                    if(saberColorChoice != playerChars.returnChar(index).questionI(index)){
+                        playerChars.invalidChar(index);
+                    }
                 }
             }
         }
         else{
             System.out.println("There has been an error in checking the input");
+            //this is so bad input dows not pushing the player
+            playerTurn--;
         }
     }
     public static void printOptions(ArrayList<String> avalibleOptions){
