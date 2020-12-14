@@ -53,8 +53,8 @@ public class IceCreamFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int indexOfSelection = picker2.getValue();
-                GDRMenuItems.MiscItems newIceCram= new GDRMenuItems.MiscItems(options0[indexOfSelection] + " of "+options[picker1.getValue()], cost[indexOfSelection]);
-                allItems.add(newIceCram);
+                GDRMenuItems.MiscItems newIceCream= new GDRMenuItems.MiscItems(options0[indexOfSelection] + " of "+options[picker1.getValue()], cost[indexOfSelection]);
+                allItems.add(newIceCream);
             }
         });
 

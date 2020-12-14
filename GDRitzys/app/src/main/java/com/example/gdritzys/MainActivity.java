@@ -19,7 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 import GDRMenuItems.MenuItem;
-import main.java.com.example.gdritzys.MenuList;
 
 public class MainActivity extends AppCompatActivity {
 
